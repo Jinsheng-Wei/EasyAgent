@@ -47,22 +47,27 @@ tools = [
     ]
 
 
-def tool_call(question,thought,tool_name):
-    print("tool_name",tool_name)
+def tool_call(question,thought,tool_name,memory):
+    # print("in tool_call!!!!!!!!!!!!!!!!!!!\n")
+    # print("question",question)
+    # print("thought",thought)
+    # print("tool_name",tool_name)
     if tool_name == '计算器' or tool_name == 'calculator':
         #用LLM或者其他模型将数学式子转换为计算式
-        question = f"原始问题是：{question} 当前的Thought是：{thought}\n请帮我将该问题转换为数学表达式，以方便我调用本地的计算工具进行计算。要求回复只包括数学表达式，不包括其他内容。"
+        question = f"原始问题是：{question},现在任务的记忆为：{memory}\n请帮我将该问题转换为数学表达式，以方便我调用本地的计算工具进行计算。要求回复只包括数学表达式，不包括其他内容。"
         expression = request_llm(question)
-        print("expression",expression)
+        # print("calculator question-------",question)
+        # print("expression",expression)
         try:
             result = eval(expression)
+            # result = 0
             return result
         except Exception as e:
             return f"计算错误: {e}"
     elif tool_name == '谷歌搜索' or tool_name == 'google_search':
         response = query_bing(question)
-        print("in tool loop!!!!!!!!!!!!!!!!!!!\n","question",question)
-        print("\nresponse",response)
+        # print("in tool loop!!!!!!!!!!!!!!!!!!!\n","question",question)
+        # print("\nresponse",response)
         return response
     elif tool_name == '日历' or tool_name == 'calendar':
         #用LLM或者其他模型获取当前时间

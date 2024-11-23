@@ -14,7 +14,9 @@ from utils.utils import parse_action,parse_thought,parse_observation,parse_statu
 
 def react(action_answer,history):
     obs_prompt = observation_prompt.format(memory_history=history,action_answer=action_answer)
+    # print("obs_prompt",obs_prompt)
     answer = request_llm(obs_prompt)
+    # print("react_answer",answer)
     observation = parse_observation(answer)
     status = parse_status(answer)
     return observation,status

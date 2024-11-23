@@ -21,7 +21,8 @@ Status:完成/未完成
 
 
 task_decomposition_prompt='''
-请帮我把任务进行分解，我的任务是{question_orgin}
+请帮我把任务进行分解，要求不要进行过多的补充，每个任务用一句话描述。
+我的任务是{question_orgin}
 任务分解为:
 1.
 2.

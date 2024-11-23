@@ -17,5 +17,10 @@ def parse_observation(answer):
 
 def parse_status(answer):
     status_match = re.search(r'Status:\s*(.*)', answer)
-    status = status_match.group(1).strip() if status_match else None
+    if status_match:
+        status = status_match.group(1).strip()
+        # 只保留汉字
+        status = re.sub(r'[^\u4e00-\u9fa5]', '', status)
+    else:
+        status = None
     return status
